@@ -136,7 +136,10 @@ async def list_rollouts(
 def _data_id_of(rollout: Rollout) -> str:
     inp = rollout.input
     if isinstance(inp, dict):
-        return str(inp.get("data_id") or inp.get("instance_id") or "")
+        data_id = inp.get("data_id")
+        if data_id is None or data_id == "":
+            data_id = inp.get("instance_id")
+        return str(data_id) if data_id is not None else ""
     return ""
 
 

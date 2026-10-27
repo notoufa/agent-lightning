@@ -59,6 +59,12 @@ The train and validation temperatures configured here are the values actually us
 
 We recommend keeping `default_proxy.include_log_probs: true`. This records rollout log probabilities and allows `verl` to report rollout-correction metrics. Some rollout-correction features also require these log probabilities.
 
+## Terminal rollout identifiers
+
+The `/api/rollouts/terminal` projection stringifies `input.data_id`, falling back to
+`input.instance_id` when `data_id` is missing, null or empty. Numeric IDs such as `0`
+are preserved as `"0"`.
+
 ## Client disconnects
 
 When an agent disconnects during a model request, the gateway cancels its upstream request and any pending retry, then releases the request's in-flight slot. An interrupted request does not produce a successful model-request event. Requests that finish before the disconnect is observed retain their recorded result.
